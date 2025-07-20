@@ -1,19 +1,9 @@
-import axios from "axios";
+// api/generateProposal/index.js
 
-const httpTrigger = async function (context: Context, req: HttpRequest): Promise<void> {
-  let userPrompt: string | undefined;
+const axios = require("axios");
 
-  if (req.body && typeof req.body === "object" && "prompt" in req.body) {
-    userPrompt = (req.body as any).prompt;
-  } else if (typeof req.body === "string") {
-    try {
-      const parsed = JSON.parse(req.body);
-      userPrompt = parsed.prompt;
-    } catch {
-      userPrompt = undefined;
-    }
-  }
-
+module.exports = async function (context, req) {
+  const userPrompt = req.body?.prompt;
   if (!userPrompt) {
     context.res = { status: 400, body: "Missing 'prompt'" };
     return;
@@ -29,7 +19,7 @@ const httpTrigger = async function (context: Context, req: HttpRequest): Promise
       {
         headers: {
           "Content-Type": "application/json",
-          "api-key": process.env.AZURE_OPENAI_KEY!
+          "api-key": process.env.AZURE_OPENAI_KEY
         }
       }
     );
@@ -38,12 +28,10 @@ const httpTrigger = async function (context: Context, req: HttpRequest): Promise
       status: 200,
       body: response.data.choices[0].message.content
     };
-  } catch (error: any) {
+  } catch (err) {
     context.res = {
       status: 500,
-      body: error.message
+      body: err.message
     };
   }
 };
-
-export default httpTrigger;
