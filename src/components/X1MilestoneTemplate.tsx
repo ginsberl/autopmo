@@ -8,14 +8,15 @@ import X1CompleteIndex from './X1CompleteIndex';
 interface X1MilestoneTemplateProps {
   projectTitle: string;
   onProjectTitleChange: (title: string) => void;
-  x0Files?: File[];
+  x0Text?: string; 
 }
 
 const X1MilestoneTemplate: React.FC<X1MilestoneTemplateProps> = ({
   projectTitle,
   onProjectTitleChange,
-  x0Files = []
+  x0Text // ✅ correct prop
 }) => {
+
   const [currentPage, setCurrentPage] = useState(1);
   const [x0ApprovalDate, setX0ApprovalDate] = useState('');
   const [x0Status, setX0Status] = useState('Approved / Declined');
@@ -38,10 +39,13 @@ const X1MilestoneTemplate: React.FC<X1MilestoneTemplateProps> = ({
     }
   };
 
+  // TODO: Replace this with actual files or data as needed
+  const x0Files: any[] = [];
+
   const renderPage1 = () => (
     <div className="max-w-4xl mx-auto bg-white min-h-screen p-8">
       <h2 className="text-2xl font-bold mb-6">X1 Working Copy</h2>
-      <X1WorkingCopy x0Files={x0Files} />
+      <X1WorkingCopy x0Text={x0Text} />
     </div>
   );
 
