@@ -10,6 +10,11 @@ interface X0DocumentViewerProps {
 const X0DocumentViewer: React.FC<X0DocumentViewerProps> = ({ x0Files }) => {
   const [selectedDoc, setSelectedDoc] = useState(x0Files[0] || null);
 
+  // ✅ Add this to debug the incoming data
+  useEffect(() => {
+    console.log("🔥 x0Files in viewer:", x0Files);
+  }, [x0Files]);
+
   useEffect(() => {
     if (x0Files.length > 0 && !selectedDoc) {
       setSelectedDoc(x0Files[0]);

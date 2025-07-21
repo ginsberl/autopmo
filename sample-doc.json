@@ -1,0 +1,12 @@
+{
+  "value": [
+    {
+      "@search.action": "upload",
+      "id": "doc123",
+      "projectId": "abc",
+      "referenceId": "xyz",
+      "chunk": "This is a paragraph from the document...",
+      "userTags": ["X0", "upload"]
+    }
+  ]
+}
